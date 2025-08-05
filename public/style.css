@@ -1,3 +1,115 @@
+/* 在style.css文件顶部添加这些CSS规则 */
+
+/* 修复Safari的viewport问题 */
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 修复Safari的flex布局问题 */
+body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available; /* Safari专用 */
+}
+
+/* 容器修复 */
+.container {
+  max-width: min(900px, 90vw); /* 更好的响应式 */
+  width: 100%;
+  margin: 60px auto;
+  padding: 30px 20px; /* 减少移动端内边距 */
+  box-sizing: border-box;
+  
+  /* Safari兼容性 */
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  -webkit-transform: translateZ(0); /* 启用硬件加速 */
+  transform: translateZ(0);
+}
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+  .container {
+    margin: 20px auto;
+    padding: 20px 15px;
+    border-radius: 20px; /* 减少圆角 */
+    min-height: auto;
+  }
+  
+  h1 {
+    font-size: 32px; /* 减少移动端标题大小 */
+    margin-bottom: 10px;
+  }
+  
+  .subtitle {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  textarea {
+    padding: 15px;
+    font-size: 16px; /* 防止Safari缩放 */
+    min-height: 80px;
+  }
+  
+  .btn-group {
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  
+  button {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+  
+  .chart {
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .chart > div:last-child > div:nth-child(2) {
+    width: 180px !important; /* 调整移动端进度条宽度 */
+  }
+}
+
+/* Safari特殊处理 */
+@supports (-webkit-appearance: none) {
+  .container {
+    /* Safari专用样式 */
+    position: relative;
+    z-index: 1;
+  }
+  
+  .container::before {
+    /* 确保背景效果在Safari中正常 */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 32px;
+    z-index: -1;
+  }
+}
+
+/* 修复iOS Safari的100vh问题 */
+@supports (-webkit-touch-callout: none) {
+  body {
+    min-height: -webkit-fill-available;
+  }
+}
+
+
+
 body {
   font-family: 'Inter', 'Poppins', sans-serif;
   background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
